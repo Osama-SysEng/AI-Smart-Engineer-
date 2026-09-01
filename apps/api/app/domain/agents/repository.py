@@ -1,0 +1,6 @@
+from typing import Protocol
+from .contracts import AgentPage, AgentSnapshot
+
+class AgentRepository(Protocol):
+    def get(self, identifier: str, tenant_id: str) -> AgentSnapshot | None: ...
+    def list_for_tenant(self, tenant_id: str, cursor: str | None = None, limit: int = 50) -> AgentPage: ...

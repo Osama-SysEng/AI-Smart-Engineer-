@@ -1,0 +1,13 @@
+# Erp: acceptance criteria
+
+## Responsibility
+
+The Erp context owns read-safe integration and controlled outbox delivery. Tenant scope, actor accountability, correlation identifiers, and policy checks are explicit in its contracts.
+
+## Control boundary
+
+AI may interpret retained evidence but cannot directly override deterministic values, cross a tenant boundary, or execute a sensitive external change without the relevant approval.
+
+## Acceptance signal
+
+A feature is accepted only when domain tests, contract checks, and operational evidence agree.

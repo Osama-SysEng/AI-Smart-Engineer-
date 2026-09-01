@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: smart-engineer-network-policy
+  labels:
+    app.kubernetes.io/name: ai-smart-engineer
+data:
+  managed-by: enterprise-expansion

@@ -1,0 +1,6 @@
+from typing import Protocol
+from .contracts import DocumentPage, DocumentSnapshot
+
+class DocumentRepository(Protocol):
+    def get(self, identifier: str, tenant_id: str) -> DocumentSnapshot | None: ...
+    def list_for_tenant(self, tenant_id: str, cursor: str | None = None, limit: int = 50) -> DocumentPage: ...

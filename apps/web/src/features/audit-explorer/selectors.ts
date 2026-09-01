@@ -1,0 +1,2 @@
+export const byStatus = <T extends { status: string }>(items: T[], status: string) => status === "ALL" ? items : items.filter(item => item.status === status);
+export const byQuery = <T extends Record<string, unknown>>(items: T[], query: string, keys: string[]) => { const needle = query.trim().toLowerCase(); return !needle ? items : items.filter(item => keys.some(key => String(item[key] ?? "").toLowerCase().includes(needle))); };

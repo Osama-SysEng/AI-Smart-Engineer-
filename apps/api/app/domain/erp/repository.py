@@ -1,0 +1,6 @@
+from typing import Protocol
+from .contracts import ErpPage, ErpSnapshot
+
+class ErpRepository(Protocol):
+    def get(self, identifier: str, tenant_id: str) -> ErpSnapshot | None: ...
+    def list_for_tenant(self, tenant_id: str, cursor: str | None = None, limit: int = 50) -> ErpPage: ...

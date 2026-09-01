@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: ai_engineer
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: ai_smart_engineer
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ai_engineer -d ai_smart_engineer"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      DATABASE_URL: postgresql+asyncpg://ai_engineer:test_password@localhost:5432/ai_smart_engineer
+      SECRET_KEY: test-secret-key-with-more-than-32-characters-123
+      DEBUG: "true"
+      OPENAI_API_KEY: ""
+      ANTHROPIC_API_KEY: ""
+      GOOGLE_API_KEY: ""
+      DEEPSEEK_API_KEY: ""
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r apps/api/requirements.txt
+      - run: python -m compileall -q apps/api/src apps/api/tests
+      - run: pytest -q apps/api/tests
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: apps/web/package.json
+      - run: cd apps/web && npm install
+      - run: cd apps/web && npm run type-check

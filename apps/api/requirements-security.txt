@@ -1,0 +1,4 @@
+# Install only in a controlled CI or security-scanner image.
+pip-audit==2.7.3
+bandit==1.7.9
+semgrep==1.84.0

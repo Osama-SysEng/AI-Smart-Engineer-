@@ -1,0 +1,1 @@
+export const toViewModel = (record: Record<string, unknown>) => ({ id: String(record.id ?? ""), status: String(record.status ?? "UNKNOWN"), correlationId: record.correlation_id ?? record.correlationId ?? null });
